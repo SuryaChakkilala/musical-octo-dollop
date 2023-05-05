@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, rooms, review_page, review_room_attendance, student_form, review_score_post, review_score_post_form, student_score_form, leaderboard, update_attendance_absent, student_attendance_report, student_score_report, announcements, team_progress_form, team_progress, rubrics
+from .views import home, rooms, review_page, review_room_attendance, student_form, review_score_post, review_score_post_form, student_score_form, leaderboard, update_attendance_absent, student_attendance_report, student_score_report, announcements, team_progress_form, team_progress, rubrics, it_allocation
 
 urlpatterns = [
     path('', home, name='learnathon_home'),
@@ -17,5 +17,6 @@ urlpatterns = [
     path('student_score_report/', student_score_report, name='student_score_report'),
     path('announcements/', announcements, name='announcements'),
     path('team_progress/', team_progress, name='team_progress'),
-    path('team_progress/<int:review_no>', team_progress_form, name='team_progress_form')
+    path('team_progress/<int:review_no>', team_progress_form, name='team_progress_form'),
+    path('it_allocate/', it_allocation, name='it_allocation'),
 ]

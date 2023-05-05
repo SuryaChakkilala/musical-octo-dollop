@@ -77,22 +77,22 @@ WSGI_APPLICATION = "hack2023.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+#DATABASES = {
+#   "default": {
+#       "ENGINE": "django.db.backends.sqlite3",
+#       "NAME": BASE_DIR / "db.sqlite3",
+#   }
+#}
 DATABASES = {
-   "default": {
-       "ENGINE": "django.db.backends.sqlite3",
-       "NAME": BASE_DIR / "db.sqlite3",
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'mydb',
+        'USER': 'admin',
+        'PASSWORD': '12345678',
+        'HOST':'hackathondb.czzjjt95i4y8.us-east-1.rds.amazonaws.com',
+        'PORT':'3306',
+    }
 }
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'mydb',
-#         'USER': 'admin',
-#         'PASSWORD': '12345678',
-#         'HOST':'hackathonapp-db.cfxj0ajszti7.us-east-1.rds.amazonaws.com',
-#         'PORT':'3306',
-#     }
-# }
 
 
 # Password validation

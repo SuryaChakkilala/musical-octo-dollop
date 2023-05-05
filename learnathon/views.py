@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
-from pages.models import Review, Room, TeamReviewRoom, Student, Team, StudentReviewAttendance, StudentReviewScore, AppImage, Announcement, TeamProgress
+from pages.models import Review, Room, TeamReviewRoom, Student, Team, StudentReviewAttendance, StudentReviewScore, AppImage, Announcement, TeamProgress, FacultyReviewRoom
 from django.contrib import messages
 from django.urls import reverse
 from django.http import HttpResponse
 from django.contrib.auth.models import User, Group
 from django.template.loader import render_to_string
 import datetime
+import csv
 from django.core.mail import EmailMessage, EmailMultiAlternatives
 from django.conf import settings
 
@@ -25,11 +26,14 @@ def home(request):
         team_review_rooms = TeamReviewRoom.objects.filter(team=team)
         context['review_rooms'] = team_review_rooms
         context['team_no'] = student.team
+    elif Group.objects.get(name='FACULTY') in user_groups:
+        frrs = FacultyReviewRoom.objects.filter(user=request.user)
+        context['review_rooms'] = frrs
+        print(frrs)
     context['announcements'] = announcements[:4]
     context['attendance'] = attendance
     context['score'] = score
     return render(request, 'learnathon/home.html', context)
-
 
 def rooms(request):
     if not request.user.is_authenticated:
@@ -301,20 +305,20 @@ def team_progress_form(request, review_no):
         team_progress.self_rating = int(request.POST['self_rating'])
         team_progress.save()
 
-        emailaddr = request.user.email
-        print(emailaddr)
+#        emailaddr = request.user.email
+#        print(emailaddr)
 
-        context = {'registration_no': request.user.username, 'role': 'Student', 'team': team, 'description': team_progress.description, 'review': team_progress.review, 'self_rating': team_progress.self_rating, 'submission_time': datetime.datetime.now()}
+#        context = {'registration_no': request.user.username, 'role': 'Student', 'team': team, 'description': team_progress.description, 'review': team_progress.review, 'self_rating': team_progress.self_rating, 'submission_time': datetime.datetime.now()}
 
-        email = EmailMultiAlternatives(
-            'Team Progress Form Submission Acknowledgement',
-            '',
-            settings.EMAIL_HOST_USER,
-            [emailaddr],
-        )
-        template = render_to_string('learnathon/team_progress_email.html', context=context)
-        email.attach_alternative(template, 'text/html')
-        email.send()
+#        email = EmailMultiAlternatives(
+#            'Team Progress Form Submission Acknowledgement',
+#            '',
+#            settings.EMAIL_HOST_USER,
+#            [emailaddr],
+#        )
+#        template = render_to_string('learnathon/team_progress_email.html', context=context)
+#        email.attach_alternative(template, 'text/html')
+#        email.send()
 
         return redirect('learnathon_home')
         
@@ -325,3 +329,18 @@ def rubrics(request):
     reviews = Review.objects.all()
     context = {'reviews': reviews}
     return render(request, 'learnathon/rubrics.html', context=context)
+
+def it_allocation(request):
+    with open('it.csv') as file:
+        csv_reader = csv.reader(file)
+        for row in csv_reader:
+            room_no = row[0]
+            room = Room.objects.get(number=room_no)
+            nums = row[2].split(',')
+            for num in nums:
+                n = 20000 + int(num)
+                team_name = f't{n}'
+                team = Team.objects.get(name=team_name)
+                trrs = TeamReviewRoom.objects.filter(team=team)
+                trrs.update(room=room)
+    return HttpResponse('done')

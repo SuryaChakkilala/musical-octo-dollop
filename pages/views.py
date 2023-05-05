@@ -30,22 +30,22 @@ def feedback(request):
         feedback.issue = request.POST['issue']
         feedback.save()
 
-        emailaddr = ''
-        template = ''
+#        emailaddr = ''
+#        template = ''
 
-        if Group.objects.get(name='STUDENT') in request.user.groups.all():
-            emailaddr = request.user.username + '@kluniversity.in'
-            template = render_to_string('pages/feedback_email.html', {'registration_no': request.user.username,'role': 'Student', 'issue_type': feedback.issue_type, 'issue': feedback.issue, 'room': feedback.room.number})
+#        if Group.objects.get(name='STUDENT') in request.user.groups.all():
+#            emailaddr = request.user.username + '@kluniversity.in'
+#            template = render_to_string('pages/feedback_email.html', {'registration_no': request.user.username,'role': 'Student', 'issue_type': feedback.issue_type, 'issue': feedback.issue, 'room': feedback.room.number})#
+#
 
-
-        email = EmailMultiAlternatives(
-            'Feedback Submission Acknowledgement',
-            '',
-            settings.EMAIL_HOST_USER,
-            [emailaddr],
-        )
-        email.attach_alternative(template, 'text/html')
-        email.send()
+#        email = EmailMultiAlternatives(
+#            'Feedback Submission Acknowledgement',
+#            '',
+#            settings.EMAIL_HOST_USER,
+#            [emailaddr],
+#        )
+#        email.attach_alternative(template, 'text/html')
+#        email.send()#
 
         return redirect('home')
 
@@ -307,19 +307,19 @@ def make_announcement(request):
             ann.groups.add(grp)
         ann.save()
 
-        student_group = Group.objects.get(name='STUDENT')
-        if student_group in ann_groups:
-            emails = []
-            users = Student.objects.all()
-            for student in users:
-                emails.append(f'{student.registration_no}@kluniversity.in')
-            email = EmailMultiAlternatives(
-                'Announcement Alert!',
-                f'An Announcement has been made regarding: {ann.title}. Please check the dashboard for more information.',
-                settings.EMAIL_HOST_USER,
-                emails,
-            )
-            email.send()
+        #student_group = Group.objects.get(name='STUDENT')
+        #if student_group in ann_groups:
+        #    emails = []
+        #    users = Student.objects.all()
+        #    for student in users:
+        #        emails.append(f'{student.registration_no}@kluniversity.in')
+        #    email = EmailMultiAlternatives(
+        #        'Announcement Alert!',
+        #        f'An Announcement has been made regarding: {ann.title}. Please check the dashboard for more information.',
+        #        settings.EMAIL_HOST_USER,
+        #        emails,
+        #    )
+        #    email.send()
         return redirect('home')
     context = {}
     return render(request, 'pages/announcement.html', context=context)
@@ -432,4 +432,11 @@ def faculty_room_allocation(request):
                 frr.review = review
                 frr.room = room
                 frr.save()
+    return HttpResponse('done')
+
+def update_faculty_credentials(request):
+    users = User.objects.filter(groups__name='FACULTY')
+    for user in users:
+        user.set_password(f'KLU@{user.username}')
+        user.save()
     return HttpResponse('done')
