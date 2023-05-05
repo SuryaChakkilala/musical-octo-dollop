@@ -1,0 +1,50 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Attendance{% endblock title %}
+
+{% block content %}
+<div class="m-3">
+    <div class="my-4">
+    <a class="btn btn-success" href="{% url 'learnathon_review_page' room_no=room_no %}">&larr;&nbsp;&nbsp;Go Back</a>
+    </div>
+    <h2>Attendance for Session {{review_no}} - {{room_no}}</h2>
+<table class="table table-hover table-sm table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Team</th>
+        <th scope="col">Registration No</th>
+        <th scope="col">Absent?</th>
+      </tr>
+    </thead>
+    <tbody>
+        <form method="POST">
+            {% csrf_token %}
+        {% for student_attendance in students_attendance %}
+            <tr>
+                <td>{{student_attendance.student.team.name}}</td>
+                <td>{{student_attendance.student.registration_no}}</td>
+                <td>
+                    <input type="checkbox" {% if student_attendance.absent %}checked{% endif %}  name="absentees" value="{{student_attendance.student.registration_no}}" />
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            {% if students_attendance %}
+            <td colspan="4">
+                <center>
+                    <input class="btn btn-primary" type="submit" value="Save" /><br />
+                </center>
+            </td>
+            {% else %}
+            <td colspan="4">
+                <center>
+                No students allocated to this room :-)
+                </center>
+            </td>
+            {% endif %}
+        </tr>
+        </form>
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

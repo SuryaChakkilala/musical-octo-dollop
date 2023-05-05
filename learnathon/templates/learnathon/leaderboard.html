@@ -1,0 +1,33 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Leaderboard{% endblock title %}
+
+{% block content %}
+<div class="card text-center mx-4">
+    <div class="card-header">
+      Student Leaderboard
+    </div>
+    {% if students %}
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Rank</th>
+          <th scope="col">Student Registration No.</th>
+          <th scope="col">Team</th>
+          <th scope="col">Score(Out of 50)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr>
+            <td {% if student.0 == 1 %}style="background-color: #FFD700"{% else %} {% if student.0 == 2 %} style="background-color: #C0C0C0"{% endif %}{% endif %}>{{student.0}}</td>
+          <td {% if student.0 == 1 %}style="background-color: #FFD700"{% else %} {% if student.0 == 2 %} style="background-color: #C0C0C0"{% endif %}{% endif %}>{{student.1.registration_no}}</td>
+          <td {% if student.0 == 1 %}style="background-color: #FFD700"{% else %} {% if student.0 == 2 %} style="background-color: #C0C0C0"{% endif %}{% endif %}>{{student.1.team}}</td>
+          <td {% if student.0 == 1 %}style="background-color: #FFD700"{% else %} {% if student.0 == 2 %} style="background-color: #C0C0C0"{% endif %}{% endif %}>{{student.1.score}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+{% endblock content %}

@@ -1,0 +1,51 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Room-{{room.number}}{% endblock title %}
+
+{% block content %}
+<br />
+<div class="mx-3">
+<a class="btn btn-success" href="{% url 'learnathon_rooms' %}">&larr;&nbsp;&nbsp;Go Back</a>
+<h2 class="my-3"> {{room.number}}: Sessions </h2>
+<hr /><br />
+{% comment %} {% for room in rooms %}
+<li><a href="{{review_no}}/{{room.number}}">{{room.number}}</a></li>
+{% endfor %} {% endcomment %}
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Sessions</th>
+        <th scope="col">Attendance Time</th>
+        <th scope="col">Attendance</th>
+        <th scope="col">Review Time</th>
+        <th scope="col">Review</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for review in reviews %}
+      <tr>
+        <td>Session-{{review.number}}</td>
+        <td>{{review.date_of_review}} {{review.time_of_attendance}}</td>
+        <td>
+        {% if review.attendance_open %}
+        <a class="btn btn-success" href="{% url 'learnathon_review_room_attendance' number=review.number room_no=room.number %}">Take Attendance</a>
+        {% else %}
+        Attendance is closed for this session.
+        {% endif %}
+        </td>
+        <td>{% if review.score_required %}{{review.date_of_review}} {{review.time_of_review}}{% endif %}</td>
+        <td>
+        {% if review.score_required and review.scoring_open %}
+        <a class="btn btn-warning" href="{% url 'learnathon_review_score_post' review_no=review.number room_no=room.number %}">Post Score</a>
+        {% else %}
+        {% if review.score_required and not review.scoring_open %}
+        Review Scoring has been closed for this session.
+        {% endif %}
+        {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}

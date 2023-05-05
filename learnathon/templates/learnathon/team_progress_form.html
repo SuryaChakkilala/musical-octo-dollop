@@ -1,0 +1,34 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Team Progress Form{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+<div class="card text-center mx-4">
+    <div class="card-header">
+      Team Progress for Review {{review_no}} for team - {{team}}
+    </div>
+      <div class="card-body">
+        <div class="row-my-4">
+            <div class="col">
+                <div class="form-group">
+                    <div class="d-flex"><div><label for="self_rating">Self Rating(Out of 10)</label></div></div> 
+                    <input required id="self_rating" type="number" min="0" max="10" class="form-control" name="self_rating" placeholder="Enter Self Rating (0-10)...">
+                </div>
+            </div>
+        </div><br />
+        <div class="row-my-4">
+            <div class="col">
+                <div class="form-group">
+                <div class="d-flex"><label for="description">Enter brief description about your progress from the previous review</label></div>
+                <textarea minlength="500" name="description" required placeholder="Describe the progress you have made in since the previous review" id="description" class="form-control" rows="4"></textarea>
+                </div>
+            </div>
+          </div>
+      </div>
+      <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+  </div>
+</form>
+{% endblock content %}

@@ -1,0 +1,80 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Make Annoucement{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+<div class="card text-center mx-4 my-4">
+    <div class="card-header">
+      Announcement Form
+    </div>
+    <div class="card-body">
+        <div class="row my-4">
+            <div class="col">
+              <div class="d-flex"><div><label for="title">Enter Title</label></div></div> 
+              <input required id="title" type="text" class="form-control" name="title" placeholder="Enter Title...">
+            </div>
+            <div class="col">
+                <div class="form-group">
+                <div class="d-flex"><label for="ann_type">Select Annoucement Type</label></div>
+                <select id="ann_type" name="type" class="form-select">
+                    <option value="Room Change">Room Change</option>
+                    <option value="Disciplinary Activities">Disciplinary Activities</option>
+                    <option value="Facilities">Facilities</option>
+                    <option value="Others">Others</option>
+                </select>
+                </div>
+            </div>
+          </div>
+      <div class="row my-4">
+        <div class="col-md-6">
+            <div class="form-group">
+            <div class="d-flex"><label for="exampleFormControlSelect1">Select Intendend Audience</label></div>
+            <div class="form-check">
+                <input name="groups" class="form-check-input" type="checkbox" value="STUDENT" id="flexCheckDefault">
+                <label class="form-check-label" for="flexCheckDefault">
+                  STUDENT
+                </label>
+              </div>
+              <div class="form-check">
+                <input name="groups" class="form-check-input" type="checkbox" value="FACULTY" id="flexCheckChecked">
+                <label class="form-check-label" for="flexCheckChecked">
+                  FACULTY
+                </label>
+              </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+            <div class="d-flex"><label for="exampleFormControlSelect2">Important?</label></div>
+            <div class="form-check">
+                <input name="important" class="form-check-input" type="radio" value="YES" id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Yes
+                </label>
+              </div>
+              <div class="form-check">
+                <input name="important" class="form-check-input" type="radio" value="NO" id="flexRadioDefault2">
+                <label class="form-check-label" for="flexRadioDefault2">
+                  No
+                </label>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row-my-4">
+        <div class="col">
+            <div class="form-group">
+            <div class="d-flex"><label for="content">Enter Annoucement</label></div>
+            <textarea name="content" required placeholder="Enter announcement content" id="content" class="form-control" rows="4"></textarea>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+        <input style="width: 100%;" class="btn btn-success btn-lg btn-block" type="submit" value="Submit" class="btn btn-primary" />
+      </div>
+  </div>
+</form>
+{% endblock content %}

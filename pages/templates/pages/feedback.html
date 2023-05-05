@@ -1,0 +1,64 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Feedback Form{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+<div class="card text-center mx-4 my-4">
+    <div class="card-header">
+      Fill Feedback
+    </div>
+    <div class="card-body">
+      <div class="row my-4">
+        <div class="col-md-6">
+            <div class="d-flex">
+            <b>Instructions: </b><br />
+                {% for instruction in instructions %}
+                {{instruction}}<br />
+                {% endfor %}<br />
+            </div>
+        </div>
+        <div class="d-flex col-md-6">
+            <b>Content: </b><br />
+            {{feedback_content}}<br />
+        </div>
+      </div>
+      <div class="row my-4">
+        <div class="col-md-6">
+            <div class="form-group">
+            <div class="d-flex"><label for="exampleFormControlSelect1">Select Room</label></div>
+            <select name="room" class="form-select">
+                {% for room in rooms %}
+                <option value="{{room.number}}">{{room.number}}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+            <div class="d-flex"><label for="exampleFormControlSelect2">Select Issue Type</label></div>
+            <select name="it" class="form-select">
+                <option value="Others">Select One</option>
+                {% for issue_type in issue_types %}
+                <option value="{{issue_type}}">{{issue_type}}</option>
+                {% endfor %}
+            </select>
+            </div>
+        </div>
+      </div>
+      <div class="row-my-4">
+        <div class="col">
+            <div class="form-group">
+            <div class="d-flex"><label for="exampleFormControlTextarea1">Enter your issue</label></div>
+            <textarea name="issue" required placeholder="Describe the problem that you are facing" id="issue" class="form-control" name="issue" id="exampleFormControlTextarea1" rows="4"></textarea>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer text-muted">
+        <input style="width: 100%;" class="btn btn-success btn-lg btn-block" type="submit" value="Submit" class="btn btn-primary" />
+      </div>
+  </div>
+</form>
+{% endblock content %}

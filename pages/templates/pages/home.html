@@ -1,0 +1,49 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<style>
+    .parent {
+        background-size: cover;
+        width: 100%;
+        height: 500px;
+        position: relative;
+     }
+     .text{
+        position: absolute;
+     }
+     .top-left{
+        top:0;
+        left:0;
+     }
+     
+     .top-right{
+        top:0;
+        right:0;
+     }
+     .bottom-left{
+        bottom:0;
+        left:0;
+     }
+     
+     .bottom-right{
+        bottom:0;
+        right:0;
+     }
+     
+     .center {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+     }     
+</style>
+<center><h1 class="display-5" style="font-family: Copperplate; color: #0a7a27;">KL CSE-H Hackathon/Learnathon</h1></center>
+
+<div class="parent">
+    <div class="text center"><h3 class="display-6" style="color: red;"></h3></div>
+    <center><img style="object-fit: fill;" src="{{image.imageURL}}" alt="home" /></center>
+    
+ </div>
+{% endblock content %}

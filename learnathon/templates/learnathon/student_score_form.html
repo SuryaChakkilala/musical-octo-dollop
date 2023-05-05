@@ -1,0 +1,47 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Student Form{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <br />
+<div class="card text-center mx-4">
+    <div class="card-header">
+      Student Review Scores
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Enter your Registration Number</h5>
+      <input style="height:37px;" type="text" name="reg_no" />
+      <input type="submit" value="Get Score Report" class="btn btn-primary" />
+    </div>
+    {% if scores %}
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th style="width: 25%" scope="col">Session</th>
+          <th style="width: 25%" scope="col">Score</th>
+          <th style="width: 50%" scope="col">Comments given by Reviewer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for score in scores %}
+        <tr>
+          <td>Session - {{score.review.number}}</td>
+          <td>{% if score.comments %}{{score.score}}{% else %}0{% endif %}</td>
+          <td>{% if score.comments %}{{score.comments}}{% else %}{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="card-footer text-muted">
+      Overall Score (Out of 50): <b>{{student.score}}</b>
+    </div>
+    {% else %}
+    <div class="card-footer text-muted">
+      Enter a valid Registration No.
+    </div>
+    {% endif %}
+  </div>
+</form>
+{% endblock content %}

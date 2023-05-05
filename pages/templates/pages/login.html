@@ -1,0 +1,74 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<style>
+    html,
+body {
+  height: 100%;
+}
+
+body {
+  align-items: center;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+
+.form-signin {
+  width: 100%;
+  max-width: 50%;
+  padding: 15px;
+  margin: auto;
+}
+
+.form-signin .checkbox {
+  font-weight: 400;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+</style>
+<main class="form-signin">
+    <div style="margin-top: 20%" class="jumbotron">
+    <form method="POST">
+        {% csrf_token %}
+        <div style="width: 100%" class="card text-center">
+            <div class="card-header">
+                <h5 class="card-title">Login</h5>
+              </div>
+            <div class="card-body">
+  
+                <div class="form-floating">
+                    <input type="text" name="username" class="form-control" id="floatingInput" placeholder="Enter your Username">
+                    <label for="floatingInput">Username</label>
+                </div>
+                <div class="form-floating">
+                    <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Enter your Password">
+                    <label for="floatingPassword">Password</label>
+                </div>
+                {{form.errors}}
+                {% for message in messages %}
+                {{message}}<br />
+                {% endfor %}
+          </div>
+      <center><input class="w-100 btn btn-lg btn-success" type="submit" value="Login" /></center>
+    </form>
+    </div>
+  </main>
+  
+{% endblock content %}

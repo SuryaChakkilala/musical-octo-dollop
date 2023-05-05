@@ -1,0 +1,179 @@
+{% extends 'learnathon/base.html' %}
+{% load has_group %}
+
+{% block title %}Hackathon/Learnathon{% endblock title %}
+
+{% block content %}
+<style>
+   html,
+   body {
+     overflow-x: hidden; /* Prevent scroll on narrow devices */
+   }
+   
+   .bg-purple {
+     background-color: #6f42c1;
+   }   
+
+</style>
+
+{% if user.is_authenticated %}
+
+<main class="px-4">
+<div class="p-3 my-3 text-white bg-purple rounded shadow-sm">
+ <div class="lh-1">
+  <div class="d-flex justify-content-between">
+      <h1 class="h6 mb-0 text-white lh-1">Learnathon/Hackathon - 2023</h1>
+      {% if user|has_group:"STUDENT" %}<h1 class="h6 mb-0 text-white lh-1">Your Team: {{team_no}}</h1>{% endif %}
+   {% comment %} <small>Since 2011</small> {% endcomment %}
+  </div>
+ </div>
+</div>
+<div class="row">
+   <div class="col">
+      <div class="my-3 p-3 bg-body rounded shadow-sm">
+         <h6 class="border-bottom pb-2 mb-0">Announcements</h6>
+         {% for announcement in announcements %}
+         <div class="d-flex text-body-secondary pt-3">
+            {% if announcement.important %}
+            <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#EE4B2B"/><text x="50%" y="50%" fill="#EE4B2B" dy=".3em"></text></svg>
+           {% else %}
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"/><text x="50%" y="50%" fill="#6f42c1" dy=".3em"></text></svg>
+           {% endif %}
+            <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+              <div class="d-flex justify-content-between">
+                <strong class="text-gray-dark">{{announcement.title}}</strong>
+                <small>{{announcement.recorded_date}}, {{announcement.recorded_time}}</small>
+              </div>
+              <span class="d-block"><small>{{announcement.content}}</small></span>
+            </div>
+          </div>
+         {% endfor %}
+         {% comment %} <div class="d-flex text-body-secondary pt-3">
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#e83e8c"/><text x="50%" y="50%" fill="#e83e8c" dy=".3em">32x32</text></svg>
+           <p class="pb-3 mb-0 small lh-sm border-bottom">
+             <strong class="d-block text-gray-dark">@username</strong>
+             Some more representative placeholder content, related to this other user. Another status update, perhaps.
+           </p>
+         </div>
+         <div class="d-flex text-body-secondary pt-3">
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"/><text x="50%" y="50%" fill="#6f42c1" dy=".3em">32x32</text></svg>
+           <p class="pb-3 mb-0 small lh-sm border-bottom">
+             <strong class="d-block text-gray-dark">@username</strong>
+             This user also gets some representative placeholder content. Maybe they did something interesting, and you really want to highlight this in the recent updates.
+           </p>
+         </div> {% endcomment %}
+         <small class="d-block text-end mt-3">
+           <a href="{% url 'announcements' %}">All announcements</a>
+         </small>
+        </div>
+   </div>
+   <div class="col">
+      {% if user|has_group:"STUDENT" %}
+      <div class="my-3 p-3 bg-body rounded shadow-sm">
+         <h6 class="border-bottom pb-2 mb-0">Student Report</h6>
+         <div class="d-flex text-body-secondary pt-3">
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+           <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+             <div class="d-flex justify-content-between">
+               <strong class="text-gray-dark">Attendance</strong>
+               <b>{{attendance}}</b>
+             </div>
+             <span class="d-block"><small><a href="{% url 'student_attendance_report' %}">Get Detailed Attendance Report</a></small></span>
+           </div>
+         </div>
+         <div class="d-flex text-body-secondary pt-3">
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+           <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+             <div class="d-flex justify-content-between">
+               <strong class="text-gray-dark">Score</strong>
+               <b>{{score}}/50</b>
+             </div>
+             <span class="d-block"><small><a href="{% url 'student_score_report' %}">Get Detailed Score Report</a></small></span>
+           </div>
+         </div>
+        </div>
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h6 class="border-bottom pb-2 mb-0">Review Room Allocation</h6>
+        <div class="row">
+        <div class="d-flex text-body-secondary pt-3">
+          <div class="pb-3 mb-0 small lh-sm w-100">
+            <div class="d-flex justify-content-between">
+              <strong class="text-gray-dark">Review No.</strong>
+              <b>Time Slot</b>
+              <b>Room No.</b>
+            </div>
+          </div>
+          </div>
+          {% for review_room in review_rooms %}
+          <div class="row pb-3 mb-0 small lh-sm w-100">
+            <div class="d-flex justify-content-between">
+              <p class="text-gray-dark">{{review_room.review.number}}</p>
+              <p>{{review_room.review.date_of_review}}, {{review_room.review.time_of_review}}</p>
+              <p>{{review_room.room.number}}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        {% endif %}
+        {% if user|has_group:"FACULTY" %}
+        <div class="my-3 p-3 bg-body rounded shadow-sm">
+         <h6 class="border-bottom pb-2 mb-0">Suggestions</h6>
+         <div class="d-flex text-body-secondary pt-3">
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+           <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+             <div class="d-flex justify-content-between">
+               <strong class="text-gray-dark">Full Name</strong>
+               <a href="#">Follow</a>
+             </div>
+             <span class="d-block">@username</span>
+           </div>
+         </div>
+         {% comment %} <div class="d-flex text-body-secondary pt-3">
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+           <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+             <div class="d-flex justify-content-between">
+               <strong class="text-gray-dark">Full Name</strong>
+               <a href="#">Follow</a>
+             </div>
+             <span class="d-block">@username</span>
+           </div>
+         </div>
+         <div class="d-flex text-body-secondary pt-3">
+           <svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+           <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+             <div class="d-flex justify-content-between">
+               <strong class="text-gray-dark">Full Name</strong>
+               <a href="#">Follow</a>
+             </div>
+             <span class="d-block">@username</span>
+           </div>
+         </div> {% endcomment %}
+         <small class="d-block text-end mt-3">
+           <a href="#">All suggestions</a>
+         </small>
+        </div>
+        {% endif %}
+   </div>
+</div>
+</main>
+
+{% else %}
+<br />
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="d-flex justify-content-center">Please Sign in</h1>
+    <div class="lead d-flex justify-content-center"><a class="btn btn-success btn-block" href="{% url 'login' %}">Login</a></div>
+  </div>
+</div>
+
+{% endif %}
+ <script>
+   (() => {
+      'use strict'
+    
+      document.querySelector('#navbarSideCollapse').addEventListener('click', () => {
+        document.querySelector('.offcanvas-collapse').classList.toggle('open')
+      })
+    })()    
+ </script>
+{% endblock content %}

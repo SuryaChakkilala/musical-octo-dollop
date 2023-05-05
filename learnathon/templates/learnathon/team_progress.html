@@ -1,0 +1,44 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Team Progress{% endblock title %}
+
+{% block content %}
+<div class="mx-3">
+    <div class="my-4">
+    <a class="btn btn-success" href="{% url 'learnathon_home' %}">&larr;&nbsp;&nbsp;Go Back</a>
+    </div>
+<h3>Team Progress Forms</h3>
+<hr />
+{% if progress %}
+<table class="table table-bordered" style="width:80%">
+    <thead>
+      <tr>
+        <th scope="col">Review</th>
+        <th scope="col">Time Slot</th>
+        <th scope="col">Form</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for pr in progress %}
+        <tr>
+            <th>{{pr.0}}</th>
+            <th>{{pr.0.date_of_review}}, {{pr.0.time_of_attendance}}</th>
+            <th>
+                {% if pr.1 and pr.0.team_progress_open %}
+                <a class="btn btn-success" href="{% url 'team_progress_form' review_no=pr.0 %}">Fill Form</a></li>
+                {% elif not pr.0.team_progress_open %}
+                Closed
+                {% else %}
+                Not Available
+                {% endif %}
+            </th>
+        </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+<p>No reviews remaining</p>
+{% endif %}
+
+</div>
+{% endblock content %}

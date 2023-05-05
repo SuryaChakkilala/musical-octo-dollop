@@ -1,0 +1,20 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Review Post Score{% endblock title %}
+
+{% block content %}
+<div class="mx-3">
+    <div class="my-4">
+    <a class="btn btn-success" href="{% url 'learnathon_review_page' room_no=room_no %}">&larr;&nbsp;&nbsp;Go Back</a>
+    </div>
+<h3>Teams for Session - {{review_no}} in {{room_no}}</h3>
+<hr />
+{% if teams %}
+{% for team in teams %}
+<li><a href="{% url 'learnathon_review_score_post_form' review_no=review_no team_no=team.name %}">{{team.name}}</a></li>
+{% endfor %}
+{% else %}
+<p>No teams are allocated to this room in this slot :-)</p>
+{% endif %}
+</div>
+{% endblock content %}

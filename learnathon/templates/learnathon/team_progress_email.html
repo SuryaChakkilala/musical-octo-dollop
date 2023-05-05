@@ -1,0 +1,56 @@
+<html>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    td {
+        text-align: center;
+    }
+</style>
+
+<body>
+Dear {{role}},<br />
+
+Hope you are doing well. Thank you for filling the Self-Rating form.<br />
+
+These are the details taken from your submission:<br />
+<br />
+<table style="width:60%">
+    <tr>
+        <td><b>Your Registration No</b></td>
+        <td>{{registration_no}}</td>
+    </tr>
+    <tr>
+        <td><b>Your Team</b></td>
+        <td>{{team}}</td>
+    </tr>
+    <tr>
+        <td><b>Description</b></td>
+        <td>{{description|truncatechars:100}}</td>
+    </tr>
+    <tr>
+        <td><b>Review</b></td>
+        <td>{{review}}</td>
+    </tr>
+    <tr>
+        <td><b>Self Rating</b></td>
+        <td>{{self_rating}}</td>
+    </tr>
+    <tr>
+        <td><b>Submission Time</b></td>
+        <td>{{submission_time}}</td>
+    </tr>
+</table><br />
+
+Stay tuned for more updates on the Announcements section.<br />
+
+All the best for your Hackathon.<br /><br /><br />
+
+Thanks and Regards,<br />
+<b>KL CSE(Honors) Department</b>
+
+</body>
+
+</html>

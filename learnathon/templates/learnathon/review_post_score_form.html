@@ -1,0 +1,79 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Post Score{% endblock title %}
+
+{% block content %}
+
+<style>
+  table {
+    table-layout: fixed;
+  }
+</style>
+
+<form method="POST">
+    {% csrf_token %}
+<div class="card text-center mx-4">
+    <div class="card-header">
+      Post score in Review {{review_no}} for team - {{course}}-{{team_no}}
+    </div>
+    <div class="card-body">
+      <div class="row my-4">
+        <div class="col-md-4">
+          <b>Instructions: </b><br />
+        {% for instruction in instructions %}
+        {{instruction}}<br />
+        {% endfor %}<br />
+        <b>Rubrics: </b><br />
+        {% for question in questions %}
+        {{question}}<br />
+        {% endfor %}<br />
+        </div>
+        <div style="text-align: right;" class="col-md-1 ml-auto"></div>
+        Team Progress Information:
+        <div style="text-align: right;" class="col ml-auto">
+          {% comment %} <div class="form-group">
+            <label for="exampleFormControlTextarea1">Rough Area (not considered for score)</label>
+            <textarea style="height: 250px;" class="form-control" placeholder="(for reviewer's reference only. Content written here is not considered when posting score)" id="exampleFormControlTextarea1" rows="3"></textarea>
+          </div> {% endcomment %}
+          {% if team_progress %}
+          <table class="table table-bordered" style="width:100%">
+            <tr>
+                <td style="width: 30%"><b>Description</b></td>
+                <td>{{team_progress.description}}</td>
+            </tr>
+            <tr>
+                <td><b>Self Rating</b></td>
+                <td>{{team_progress.self_rating}}</td>
+            </tr>
+            <tr>
+                <td><b>Submission Time</b></td>
+                <td>{{team_progress.submission_time}}</td>
+            </tr>
+        </table>
+        {% else %}
+        <p style="color: red;">No Team Progress Information Found.</p>
+          {% endif %}
+        </div>
+      </div>
+      {% for student_score in student_review_scores %}
+      <div class="row my-4">
+        <div class="col">
+          <div class="d-flex"><div><label for="score_{{student_score.student.registration_no}}">Score for {{student_score.student.registration_no}} <b>(Out of 10) {% if student_score.student in absentees %} <u>(ABSENT)</u> {% endif %}</b></label></div></div>
+          {% if student_score.student in absentees %}
+          <input readonly value="0" required id="score_{{student_score.student.registration_no}}" type="number" class="form-control" name="score_{{student_score.student.registration_no}}" value="{{student_score.score}}" placeholder="Enter score for {{student_score.student.registration_no}}...">
+          {% else %}
+          <input required id="score_{{student_score.student.registration_no}}" type="number" value="1" min="1" max="10" step="1" class="form-control" name="score_{{student_score.student.registration_no}}" value="{{student_score.score}}" placeholder="Enter score for {{student_score.student.registration_no}}...">
+          {% endif %}
+          {% comment %} <input min="1" max="10"  required id="score_{{student_score.student.registration_no}}" type="number" class="form-control" name="score_{{student_score.student.registration_no}}" value="{{student_score.score}}" placeholder="Enter score for {{student_score.student.registration_no}}..."> {% endcomment %}
+        </div>
+        <div class="col">
+          <div class="d-flex"><div><label for="comments_{{student_score.student.registration_no}}">Comments for {{student_score.student.registration_no}}</label></div></div>
+          <input {% if student_score.student in absentees %} readonly value="Absent" {% endif %} required type="text" value="{{student_score.comments}}" class="form-control" name="comments_{{student_score.student.registration_no}}" placeholder="Enter comments for {{student_score.student.registration_no}}...">
+        </div>
+      </div>
+      {% endfor %}
+      <input {% if not team_progress %}disabled{% endif %} type="submit" value="Post Score{% if not team_progress %} (Please inform the team to submit Team Progress Form){% endif %}" class="{% if team_progress %}btn btn-primary {% else %}btn btn-secondary{% endif %}" />
+    </div>
+  </div>
+</form>
+{% endblock content %}

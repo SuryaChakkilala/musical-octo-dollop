@@ -1,0 +1,45 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Student Form{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <br />
+<div class="card text-center mx-4">
+    <div class="card-header">
+      Student Attendance
+    </div>
+    <div class="card-body">
+      <h5 class="card-title">Enter your Registration Number</h5>
+      <input style="height:37px;" type="text" name="reg_no" />
+      <input type="submit" value="Get Attendance Report" class="btn btn-primary" />
+    </div>
+    {% if attendances %}
+    <table class="table table-bordered">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Session</th>
+          <th scope="col">Present?</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for attendance in attendances %}
+        <tr>
+          <td>Session - {{attendance.review.number}}</td>
+          <td>{% if attendance.absent %}<i class="bi bi-x-circle-fill" style="color: red;"></i>{% else %}<i class="bi bi-check-circle-fill" style="color: green;"></i>{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <div class="card-footer text-muted">
+      Overall Attendance: {{student.attendance}}
+    </div>
+    {% else %}
+    <div class="card-footer text-muted">
+      Enter a valid Registration No.
+    </div>
+    {% endif %}
+  </div>
+</form>
+{% endblock content %}

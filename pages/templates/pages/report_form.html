@@ -1,0 +1,28 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Report Generation Form{% endblock title %}
+
+{% block content %}
+<form method="POST">
+    {% csrf_token %}
+    <br />
+<div class="card text-center mx-4">
+    <div class="card-header">
+      Report Generation
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+        <div class="d-flex"><label for="exampleFormControlSelect2">Select Issue Type</label></div>
+        <select required name="report_type" class="form-select">
+            <option value="room_attendance">Roomwise Attendance Status</option>
+<option value="review_status">Roomwise Review Status</option>
+<option value="student_attendance">Student Attendance</option>
+            <option value="student_score">Student Score</option>
+	    <option value="review_zero_score">Review Zero Score</option>
+        </select>
+    </div><br />
+      <input type="submit" value="Get Report" class="btn btn-primary" />
+    </div>
+  </div>
+</form>
+{% endblock content %}

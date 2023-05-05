@@ -1,0 +1,31 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Announcements{% endblock title %}
+
+{% block content %}
+
+<br />
+
+<div class="px-5">
+
+<h2>Announcements</h2>
+<hr />
+{% for announcement in announcements %}
+<div class="d-flex text-body-secondary pt-3">
+{% if announcement.important %}
+<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#EE4B2B"/><text x="50%" y="50%" fill="#EE4B2B" dy=".3em"></text></svg>
+{% else %}
+<svg class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 32x32" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#6f42c1"/><text x="50%" y="50%" fill="#6f42c1" dy=".3em"></text></svg>
+{% endif %}
+<div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+    <div class="d-flex justify-content-between">
+    <strong class="text-gray-dark">{{announcement.title}}</strong>
+    <small>{{announcement.recorded_date}}, {{announcement.recorded_time}}</small>
+    </div>
+    <span class="d-block"><small>{{announcement.content}}</small></span>
+</div>
+</div>
+{% endfor %}
+
+</div>
+{% endblock content %}

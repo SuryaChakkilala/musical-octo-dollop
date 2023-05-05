@@ -1,0 +1,21 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Rubrics{% endblock title %}
+
+{% block content %}
+<br />
+<div class="container">
+    <h2>Rubrics</h2>
+    <hr />
+    <div class="row border">
+        <div class="col-md-2 border"><b>Review</b></div>
+        <div class="col border"><b>Rubrics</b></div>
+    </div>
+    {% for review in reviews %}
+    <div class="row border">
+        <div class="col-md-2 border">{{review.number}}</div>
+        <div class="col border"><pre>{{review.questions}}</pre></div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

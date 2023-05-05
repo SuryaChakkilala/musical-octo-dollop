@@ -1,0 +1,104 @@
+{% extends 'learnathon/base.html' %}
+
+{% block title %}Learnathon Reviews{% endblock title %}
+
+{% block content %}
+<div class="mx-3">
+  <h2 class="text-align: center;">Learnathon Rooms List</h2>
+  <hr /><br />
+  <div class="mx-3">
+  <table style="text-align:center" class="table table-hover table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Floor</th>
+        <th scope="col">Rooms</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if f0 %}
+      <tr>
+        
+        <td class="col-md-2">Ground Floor</td>
+        <td class="col-md-10">
+          {% for room in f0 %}
+          <a class="btn btn-secondary" href="{% url 'learnathon_review_page' room_no=room.number %}">{{room.number}}</a>
+          {% endfor %}
+        
+        </td>
+      </tr>
+      {% endif %}
+      {% if f1 %}
+      <tr>
+        
+        <td class="col-md-2">First Floor</td>
+        <td class="col-md-10">
+          {% for room in f1 %}
+          <a class="btn btn-secondary" href="{% url 'learnathon_review_page' room_no=room.number %}">{{room.number}}</a>
+          {% endfor %}
+        </td>
+      
+      </tr>
+      {% endif %}
+      {% if f2 %}
+      <tr>
+        
+        <td class="col-md-2">Second Floor</td>
+        <td class="col-md-10">
+          {% for room in f2 %}
+            <a class="btn btn-secondary" href="{% url 'learnathon_review_page' room_no=room.number %}">{{room.number}}</a>
+          {% endfor %}
+        </td>
+        
+      </tr>
+      {% endif %}
+      {% if f3 %}
+      <tr>
+        
+        <td class="col-md-2">Third Floor</td>
+        <td class="col-md-10">
+          {% for room in f3 %}
+            <a class="btn btn-secondary" href="{% url 'learnathon_review_page' room_no=room.number %}">{{room.number}}</a>
+          {% endfor %}
+        </td>
+        
+      </tr>
+      {% endif %}
+      {% if f4 %}
+      <tr>
+        
+        <td class="col-md-2">Fourth Floor</td>
+        <td class="col-md-10">
+          {% for room in f4 %}
+          <a class="btn btn-secondary" href="{% url 'learnathon_review_page' room_no=room.number %}">{{room.number}}</a>
+          {% endfor %}
+        </td>
+        
+      </tr>
+      {% endif %}
+      {% if f5 %}
+      <tr>
+        
+        <td class="col-md-2">Fifth Floor</td>
+        <td class="col-md-10">
+          {% for room in f5 %}
+          <a class="btn btn-secondary" href="{% url 'learnathon_review_page' room_no=room.number %}">{{room.number}}</a>
+          {% endfor %}
+        </td>
+        
+      </tr>
+      {% endif %}
+      {% if f6 %}
+      <tr>
+        <td class="col-md-2">Sixth Floor</td>
+        <td class="col-md-10">
+          {% for room in f6 %}
+          <a class="btn btn-secondary" href="{% url 'learnathon_review_page' room_no=room.number %}">{{room.number}}</a>
+          {% endfor %}
+        </td>
+      </tr>
+      {% endif %}
+    </tbody>
+  </table>
+</div>
+</div>
+{% endblock content %}

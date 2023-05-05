@@ -1,0 +1,22 @@
+{% extends 'learnathon/base.html' %}
+{% load static %}
+
+{% block title %}Access Denied{% endblock title %}
+
+{% block content %}
+<style>
+</style>
+<div class="m-3">
+    <div class="my-4">
+    <a class="btn btn-success" href="{{prev_page_url}}">&larr;&nbsp;&nbsp;Go Back</a>
+    </div>
+
+    <div class="d-flex justify-content-start">&nbsp;</div>
+    <div class="d-flex justify-content-end">&nbsp;</div>
+    <div class="d-flex justify-content-center"><h1 style="color: red;">Access Denied&nbsp;&nbsp;<i style="color: red;" class="bi bi-exclamation-diamond"></i></h1><br /></div>
+    <center><h4>{{message}}</h4></center><br />
+    
+    <img style="height: 40%; width: 40%;" src="{% static 'images/access_denied.svg' %}" alt="access-denied" />
+
+</div>
+{% endblock content %}
