@@ -3,8 +3,8 @@ from .models import Student, Team, Room, Review, TeamReviewRoom, BusinessSystem,
 from import_export.admin import ImportExportModelAdmin
 from django.utils.safestring import mark_safe
 
-admin.site.site_header = 'KL CSE-H Learnathon/Hackathon Administration'
-admin.site.site_title = 'KL CSE-H Learnathon/Hackathon Administration'
+admin.site.site_header = 'KL CSE-H Learnathon/Hackathon Administration (1)'
+admin.site.site_title = 'KL CSE-H Learnathon/Hackathon Administration (1)'
 
 admin.site.register(AppImage)
 

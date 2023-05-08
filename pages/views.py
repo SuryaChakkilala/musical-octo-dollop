@@ -440,3 +440,20 @@ def update_faculty_credentials(request):
         user.set_password(f'KLU@{user.username}')
         user.save()
     return HttpResponse('done')
+
+def update_student_score(request):
+    students = Student.objects.all()
+    reviews = Review.objects.all()
+    for student in students:
+        sras = StudentReviewAttendance.objects.filter(student=student)
+        for review in reviews:
+            att = sras.filter(review=review).first()
+            if (not att) or (att and att.absent):
+                score = StudentReviewScore.objects.filter(student=student, review=review).first()
+                if not score:
+                    score = StudentReviewScore(student=student, review=review, score=0)
+                    score.save()
+                else:
+                    score.score = 0
+                    score.save()
+    return HttpResponse('done')

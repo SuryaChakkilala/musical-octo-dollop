@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import home, feedback, loginPage, logoutUser, update_rooms, faculty_upload, attendance_status, reports_page, update_it_attendance, make_announcement, generate_student_users, allocate_rooms, allocate_rooms2, faculty_user_generation, faculty_room_allocation, update_faculty_credentials
+from .views import home, feedback, loginPage, logoutUser, update_rooms, faculty_upload, attendance_status, reports_page, update_it_attendance, make_announcement, generate_student_users, allocate_rooms, allocate_rooms2, faculty_user_generation, faculty_room_allocation, update_faculty_credentials, update_student_score
 
 urlpatterns = [
     path('', home, name='home'),
@@ -18,4 +18,5 @@ urlpatterns = [
     path('faculty_user_generation/', faculty_user_generation, name='faculty_user_generation'),
     path('faculty_room_allocation/', faculty_room_allocation, name='faculty_room_allocation'),
     path('update_faculty_credentials/', update_faculty_credentials, name='update_faculty_credentials'),
+    path('update_student_score/', update_student_score, name='update_student_score'),
 ]
